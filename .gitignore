@@ -1,1 +1,9 @@
 .vscode/
+nimcache/
+
+# Tests
+tests/*
+!tests/test*.nim
+!tests/config.nims
+testresults/
+testresults.html
