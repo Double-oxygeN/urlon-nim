@@ -60,3 +60,5 @@ let testcases = {
 for (jsonObj, risonStr) in testcases:
   check jsonObj.toUrlon() == risonStr
   check risonStr.parseUrlon() == jsonObj
+
+check parseUrlon("@:1&:4&:9&:16").to(seq[int]) == @[1, 4, 9, 16]
