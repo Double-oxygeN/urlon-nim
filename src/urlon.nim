@@ -71,13 +71,13 @@ func toUrlonImpl(obj: JsonNode): string =
     return if obj.bval: ":true" else: ":false"
 
   of JInt:
-    return ':' & $obj.num
+    return keywordOrNumberPrefix & $obj.num
 
   of JFloat:
-    return ':' & $obj.fnum
+    return keywordOrNumberPrefix & $obj.fnum
 
   of JString:
-    return '=' & encodeUrlWithEscapeSequence(obj.str, valueEscapeTargets)
+    return stringPrefix & encodeUrlWithEscapeSequence(obj.str, valueEscapeTargets)
 
   of JArray:
     return arrayPrefix & obj.elems.map(toUrlonImpl).join($itemSeparator) & collectionSuffix
@@ -122,13 +122,11 @@ func parseUrlonImpl(x: string): tuple[parsed: JsonNode, rest: string] =
     raise UrlonParsingError.newException("Empty string cannot be an URLON.")
 
   case x[0]
-  of '=':
-    # String
+  of stringPrefix:
     let (token, rest) = readToken(x[1..^1], endOfValue)
     return (parsed: newJString(token), rest: rest)
 
-  of ':':
-    # Boolean, Number or Null
+  of keywordOrNumberPrefix:
     let (token, rest) = readToken(x[1..^1], endOfValue)
     if token == "true":
       return (parsed: newJBool(true), rest: rest)
