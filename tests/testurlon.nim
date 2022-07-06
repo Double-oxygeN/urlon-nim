@@ -48,12 +48,12 @@ let testcases = {
   %[0]: "@:0",
   %[[0]]: "@@:0",
   %[[[[0]]]]: "@@@@:0",
-  %[@[[0], [0]], @[[0]]]: "@@@:0;&:0;;&@@0",
+  %[@[[0], [0]], @[[0]]]: "@@@:0;&@:0;;&@@:0",
 
   # object
   %EmptyObject(): "$",
   %Obj1(val1: "obj1", val2: -1, val3: true): "$val1=obj1&val2:-1&val3:true",
-  %Obj2(o1: Obj1(val1: "obj1", val2: 2, val3: false), o2: Obj1(), val1: @[1, 1, 2, 3, 5, 8, 13]): "$o1$val1=obj1&val2:2&val3:false;&o2$val1=&val2:0&val3:false&val1@:1&:1&:2&:3&:5&:8&:13"
+  %Obj2(o1: Obj1(val1: "obj1", val2: 2, val3: false), o2: Obj1(), val1: @[1, 1, 2, 3, 5, 8, 13]): "$o1$val1=obj1&val2:2&val3:false;&o2$val1=&val2:0&val3:false;&val1@:1&:1&:2&:3&:5&:8&:13"
   }
 
 for (jsonObj, risonStr) in testcases:
