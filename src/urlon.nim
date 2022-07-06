@@ -11,7 +11,7 @@ else:
   from uri import decodeUrl
 
 type
-  UrlonParsingError = object of ValueError
+  UrlonParsingError* = object of ValueError
 
 const urlValidChars = {
   '0'..'9', 'a'..'z', 'A'..'Z',
@@ -117,7 +117,10 @@ func readToken(x: string; endOfToken: static set[char]): tuple[token: string, re
       result.token.add x[pos]
       inc pos
 
-proc parseUrlonImpl(x: string): tuple[parsed: JsonNode, rest: string] =
+func parseUrlonImpl(x: string): tuple[parsed: JsonNode, rest: string] =
+  if x.len == 0:
+    raise UrlonParsingError.newException("Empty string cannot be an URLON.")
+
   case x[0]
   of '=':
     # String
@@ -188,7 +191,7 @@ proc parseUrlonImpl(x: string): tuple[parsed: JsonNode, rest: string] =
   else:
     raise UrlonParsingError.newException("'" & x & "' cannot parse as URLON.")
 
-proc parseUrlon*(x: string): JsonNode =
+func parseUrlon*(x: string): JsonNode =
   ## Parse URLON and convert to JSON.
   let (parsedJson, rest) = parseUrlonImpl(decodeUrlon(x))
   assert rest.len == 0
