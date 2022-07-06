@@ -10,3 +10,6 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 1.6.6"
+
+task test, "Run testament":
+  exec "testament pat 'tests/test*.nim'"
