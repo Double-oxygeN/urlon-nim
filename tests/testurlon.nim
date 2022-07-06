@@ -4,7 +4,7 @@ discard """
 """
 
 from unittest import check
-from json import `%`, `$`
+from json import `%`, `$`, `==`
 import urlon
 
 type
@@ -35,6 +35,7 @@ let testcases = {
   %3.14159: ":3.14159",
   %NaN: "=nan",
   %Inf: "=inf",
+  %(-Inf): "=-inf",
 
   # string
   %"": "=",
