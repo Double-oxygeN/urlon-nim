@@ -93,9 +93,14 @@ func toUrlon*(obj: JsonNode): string =
   toUrlonImpl(obj).trimTrailingCollectionSuffices()
 
 template `%%*`*(x: untyped): string =
-  ## Convert any object to URLON.
+  ## Construct an URLON.
   ## This uses ``json.`%*` ``.
   toUrlon(%*x)
+
+template `%%`*(x: untyped): string =
+  ## Convert any object to URLON.
+  ## This uses ``json.`%` ``.
+  toUrlon(%x)
 
 func readToken(x: string; endOfToken: static set[char]): tuple[token: string, rest: string] =
   var pos = 0.Natural
