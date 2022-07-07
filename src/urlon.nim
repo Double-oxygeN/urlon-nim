@@ -28,11 +28,11 @@ const
   collectionSuffix = ';'
   escape = '/'
 
-  valueEscapeTargets = {itemSeparator, collectionSuffix, escape}
-  keyEscapeTargets = {stringPrefix, keywordOrNumberPrefix, arrayPrefix, objectPrefix}
+  endOfValue = {itemSeparator, collectionSuffix}
+  endOfKey = {stringPrefix, keywordOrNumberPrefix, arrayPrefix, objectPrefix}
 
-  endOfValue = valueEscapeTargets - {escape}
-  endOfKey = keyEscapeTargets - {escape}
+  valueEscapeTargets = endOfValue + {escape}
+  keyEscapeTargets = endOfKey + {escape}
 
 func encodeUrlWithEscapeSequence(s: string; escapeTargets: static set[char]): string =
   when defined(js):

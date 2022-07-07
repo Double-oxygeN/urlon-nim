@@ -4,7 +4,7 @@ discard """
 """
 
 from unittest import check
-from json import `%`, `$`, `==`
+from json import `%`, `%*`, `$`, `==`
 import urlon
 
 type
@@ -40,6 +40,7 @@ let testcases = {
   # string
   %"": "=",
   %" ": "=%20",
+  %";": "=/",
   %"Hello": "=Hello",
   %"你好😍": "=%E4%BD%A0%E5%A5%BD%F0%9F%98%8D",
   %"`~!@#$%^&*()_+-={}|[]\\:\";'<>?,./": "=%60~!@#$%25%5E/&*()_+-=%7B%7D%7C%5B%5D%5C:%22/;'%3C%3E?,.//",
@@ -54,7 +55,13 @@ let testcases = {
   # object
   %EmptyObject(): "$",
   %Obj1(val1: "obj1", val2: -1, val3: true): "$val1=obj1&val2:-1&val3:true",
-  %Obj2(o1: Obj1(val1: "obj1", val2: 2, val3: false), o2: Obj1(), val1: @[1, 1, 2, 3, 5, 8, 13]): "$o1$val1=obj1&val2:2&val3:false;&o2$val1=&val2:0&val3:false;&val1@:1&:1&:2&:3&:5&:8&:13"
+  %Obj2(o1: Obj1(val1: "obj1", val2: 2, val3: false), o2: Obj1(), val1: @[1, 1, 2, 3, 5, 8, 13]): "$o1$val1=obj1&val2:2&val3:false;&o2$val1=&val2:0&val3:false;&val1@:1&:1&:2&:3&:5&:8&:13",
+
+  # constructed
+  %* nil: ":null",
+  %* [[[[[0],0]],0]]: "@@@@@:0;&:0;;&:0",
+  %* {"/": "/", "=:@": "=:@"}: "$//=//&/=/:/@==:@",
+  %* [{},{}]: "@$;&$"
   }
 
 for (jsonObj, risonStr) in testcases:
