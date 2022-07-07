@@ -5,6 +5,12 @@
 URLON is originally designed by @vjeux (see [the blog](https://blog.vjeux.com/2011/javascript/urlon-url-object-notation.html)).
 The main implementation is [here](https://github.com/cerebral/urlon).
 
+## Installation guide
+
+```sh
+nimble install urlon
+```
+
 ## Run tests
 
 ```sh
